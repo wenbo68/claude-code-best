@@ -1,0 +1,485 @@
+# Dependency Overview
+
+- Date: 2026/06/07
+- Sources: `package.json`
+
+Note: this is a Bun-workspace monorepo. The root `package.json` declares only a handful of true runtime `dependencies`; almost everything else (SDKs, build tooling, UI/runtime libs, native helpers) lives under `devDependencies`, and internal workspace packages are referenced via `workspace:*`. Section 1 preserves the manifest's declared order exactly.
+
+## List
+
+### package.json — dependencies
+- `@agentclientprotocol/sdk`: `^0.19.0`
+    - Agent Client Protocol (ACP) SDK; powers `src/services/acp/` (AcpAgent, bridge) and the `acp-link` proxy that bridges WebSocket clients to ACP agents.
+- `@claude-code-best/mcp-chrome-bridge`: `^3.0.1`
+    - Native-messaging bridge for the Claude-for-Chrome MCP integration (connects the CLI to a Chrome extension/browser).
+- `highlight.js`: `^11.11.1`
+    - Syntax highlighting library, used to colorize code blocks rendered in the terminal/Web UIs.
+- `ws`: `^8.20.0`
+    - WebSocket client/server; underpins remote-control, ACP-link, RCS relay, and direct-connect session transports.
+
+### package.json — devDependencies
+- `@alcalzone/ansi-tokenize`: `^0.3.0`
+    - Tokenizes ANSI-colored strings; used by terminal text-layout/wrapping in the Ink rendering path.
+- `@ant/claude-for-chrome-mcp`: `workspace:*`
+    - Internal workspace package: Chrome browser-control MCP server.
+- `@ant/computer-use-input`: `workspace:*`
+    - Internal workspace package: keyboard/mouse input simulation backends.
+- `@ant/computer-use-mcp`: `workspace:*`
+    - Internal workspace package: Computer Use MCP server.
+- `@ant/computer-use-swift`: `workspace:*`
+    - Internal workspace package: screenshot + app-management backends.
+- `@ant/model-provider`: `workspace:*`
+    - Internal workspace package: model-provider abstraction layer.
+- `@anthropic-ai/bedrock-sdk`: `^0.29.0`
+    - Anthropic SDK for AWS Bedrock; backs the `bedrock` API provider.
+- `@anthropic-ai/claude-agent-sdk`: `^0.2.114`
+    - Claude Agent SDK; provides agent-loop / SDK message types consumed by the entrypoints `sdk/` layer.
+- `@anthropic-ai/foundry-sdk`: `^0.2.3`
+    - Anthropic SDK for the Foundry provider.
+- `@anthropic-ai/mcpb`: `^2.1.2`
+    - MCP bundle (`.mcpb`) tooling; packaging/loading of MCP server bundles.
+- `@anthropic-ai/sandbox-runtime`: `^0.0.44`
+    - Sandbox runtime for safely executing tool/bash actions.
+- `@anthropic-ai/sdk`: `^0.81.0`
+    - Core Anthropic SDK; the primary first-party API client (streaming messages, betas).
+- `@anthropic-ai/vertex-sdk`: `^0.16.0`
+    - Anthropic SDK for Google Cloud Vertex AI; backs the `vertex` provider.
+- `@anthropic/ink`: `workspace:*`
+    - Internal workspace package: the forked Ink terminal-UI framework.
+- `@aws-sdk/client-bedrock`: `^3.1037.0`
+    - AWS SDK Bedrock control-plane client (model listing/management).
+- `@aws-sdk/client-bedrock-runtime`: `^3.1037.0`
+    - AWS SDK Bedrock runtime client (model invocation) for the Bedrock provider.
+- `@aws-sdk/client-sts`: `^3.1037.0`
+    - AWS STS client for temporary-credential / role assumption.
+- `@aws-sdk/credential-provider-node`: `^3.972.36`
+    - AWS credential resolution chain for Node-style environments.
+- `@aws-sdk/credential-providers`: `^3.1037.0`
+    - Pluggable AWS credential providers used when authenticating to Bedrock.
+- `@azure/identity`: `^4.13.1`
+    - Azure credential/identity library (for Azure-hosted/Foundry auth scenarios).
+- `@biomejs/biome`: `^2.4.12`
+    - Biome linter + formatter; the project's lint/format toolchain.
+- `@claude-code-best/agent-tools`: `workspace:*`
+    - Internal workspace package: agent-facing tool set.
+- `@claude-code-best/builtin-tools`: `workspace:*`
+    - Internal workspace package: the 60 built-in tool implementations.
+- `@claude-code-best/mcp-client`: `workspace:*`
+    - Internal workspace package: MCP client library.
+- `@claude-code-best/weixin`: `workspace:*`
+    - Internal workspace package: WeChat integration.
+- `@commander-js/extra-typings`: `^14.0.0`
+    - Strongly-typed Commander.js wrapper; powers the CLI command definitions in `main.tsx`.
+- `@growthbook/growthbook`: `^1.6.5`
+    - Feature-flag/experimentation SDK (GrowthBook); largely an empty/stubbed analytics integration here.
+- `@langfuse/otel`: `^5.1.0`
+    - Langfuse OpenTelemetry integration for LLM tracing.
+- `@langfuse/tracing`: `^5.1.0`
+    - Langfuse tracing SDK for capturing LLM/agent spans.
+- `@modelcontextprotocol/sdk`: `^1.29.0`
+    - Official Model Context Protocol SDK; client/server primitives for MCP integrations.
+- `@opentelemetry/api`: `^1.9.1`
+    - OpenTelemetry API surface used across telemetry instrumentation.
+- `@opentelemetry/api-logs`: `^0.215.0`
+    - OpenTelemetry logs API.
+- `@opentelemetry/core`: `^2.7.0`
+    - OpenTelemetry core utilities/context propagation.
+- `@opentelemetry/exporter-logs-otlp-grpc`: `^0.215.0`
+    - OTLP/gRPC logs exporter.
+- `@opentelemetry/exporter-logs-otlp-http`: `^0.215.0`
+    - OTLP/HTTP logs exporter.
+- `@opentelemetry/exporter-logs-otlp-proto`: `^0.215.0`
+    - OTLP/protobuf logs exporter.
+- `@opentelemetry/exporter-metrics-otlp-grpc`: `^0.215.0`
+    - OTLP/gRPC metrics exporter.
+- `@opentelemetry/exporter-metrics-otlp-http`: `^0.215.0`
+    - OTLP/HTTP metrics exporter.
+- `@opentelemetry/exporter-metrics-otlp-proto`: `^0.215.0`
+    - OTLP/protobuf metrics exporter.
+- `@opentelemetry/exporter-prometheus`: `^0.215.0`
+    - Prometheus metrics exporter.
+- `@opentelemetry/exporter-trace-otlp-grpc`: `^0.215.0`
+    - OTLP/gRPC trace exporter.
+- `@opentelemetry/exporter-trace-otlp-http`: `^0.215.0`
+    - OTLP/HTTP trace exporter.
+- `@opentelemetry/exporter-trace-otlp-proto`: `^0.215.0`
+    - OTLP/protobuf trace exporter.
+- `@opentelemetry/resources`: `^2.7.0`
+    - OpenTelemetry resource (service metadata) definitions.
+- `@opentelemetry/sdk-logs`: `^0.215.0`
+    - OpenTelemetry logs SDK pipeline.
+- `@opentelemetry/sdk-metrics`: `^2.7.0`
+    - OpenTelemetry metrics SDK pipeline.
+- `@opentelemetry/sdk-trace-base`: `^2.7.0`
+    - OpenTelemetry tracing SDK pipeline.
+- `@opentelemetry/semantic-conventions`: `^1.40.0`
+    - Standard OpenTelemetry attribute/semantic conventions.
+- `@sentry/node`: `^10.49.0`
+    - Sentry error/crash reporting (mostly an empty/stubbed integration here).
+- `@smithy/core`: `^3.23.15`
+    - AWS Smithy runtime core (low-level AWS SDK plumbing).
+- `@smithy/node-http-handler`: `^4.5.3`
+    - Smithy Node HTTP handler for AWS SDK requests.
+- `@types/bun`: `^1.3.12`
+    - TypeScript types for the Bun runtime.
+- `@types/cacache`: `^20.0.1`
+    - Type definitions for `cacache`.
+- `@types/he`: `^1.2.3`
+    - Type definitions for `he` (HTML entity codec).
+- `@types/lodash-es`: `^4.17.12`
+    - Type definitions for `lodash-es`.
+- `@types/node`: `^25.6.0`
+    - Node.js type definitions (Node-compatible build target).
+- `@types/picomatch`: `^4.0.3`
+    - Type definitions for `picomatch`.
+- `@types/plist`: `^3.0.5`
+    - Type definitions for `plist`.
+- `@types/proper-lockfile`: `^4.1.4`
+    - Type definitions for `proper-lockfile`.
+- `@types/qrcode`: `^1.5.6`
+    - Type definitions for `qrcode`.
+- `@types/react`: `^19.2.14`
+    - React type definitions (Ink/React component tree).
+- `@types/react-reconciler`: `^0.33.0`
+    - Type definitions for the custom React reconciler.
+- `@types/semver`: `^7.7.1`
+    - Type definitions for `semver`.
+- `@types/sharp`: `^0.32.0`
+    - Type definitions for `sharp`.
+- `@types/shell-quote`: `^1.7.5`
+    - Type definitions for `shell-quote`.
+- `@types/stack-utils`: `^2.0.3`
+    - Type definitions for `stack-utils`.
+- `@types/turndown`: `^5.0.6`
+    - Type definitions for `turndown`.
+- `@types/ws`: `^8.18.1`
+    - Type definitions for `ws`.
+- `ajv`: `^8.18.0`
+    - JSON Schema validator; validates tool/config schemas.
+- `asciichart`: `^1.5.25`
+    - ASCII line-chart renderer for terminal stats/usage visualizations.
+- `audio-capture-napi`: `workspace:*`
+    - Internal workspace package: native audio capture (voice input).
+- `auto-bind`: `^5.0.1`
+    - Auto-binds class methods to instances (common in Ink/React class helpers).
+- `axios`: `^1.15.2`
+    - HTTP client; used by command API layers (e.g. schedule/skill-store/vault).
+- `bidi-js`: `^1.0.3`
+    - Unicode bidirectional-text algorithm for correct RTL terminal rendering.
+- `cacache`: `^20.0.4`
+    - Content-addressable on-disk cache (asset/response caching).
+- `chalk`: `^5.6.2`
+    - Terminal string styling/colors.
+- `chokidar`: `^5.0.0`
+    - File-system watcher (watch CLAUDE.md/config/file changes).
+- `cli-boxes`: `^4.0.1`
+    - Box-drawing character sets for terminal UI borders.
+- `cli-highlight`: `^2.1.11`
+    - Terminal syntax highlighting for code output.
+- `code-excerpt`: `^4.0.0`
+    - Extracts code excerpts with surrounding context (diagnostics/error display).
+- `color-diff-napi`: `workspace:*`
+    - Internal workspace package: native color-difference computation.
+- `diff`: `^8.0.4`
+    - Text diffing; powers FileEdit diffs and diff rendering.
+- `emoji-regex`: `^10.6.0`
+    - Regex for matching emoji (width/segmentation in terminal layout).
+- `env-paths`: `^4.0.0`
+    - Resolves OS-appropriate config/cache/data directories.
+- `execa`: `^9.6.1`
+    - Process execution wrapper (spawning git, ripgrep, shell commands).
+- `fflate`: `^0.8.2`
+    - Fast zlib/gzip (de)compression in pure JS.
+- `figures`: `^6.1.0`
+    - Unicode symbols/icons for terminal UI.
+- `fuse.js`: `^7.3.0`
+    - Fuzzy search; powers fuzzy pickers and command/file matching.
+- `get-east-asian-width`: `^1.5.0`
+    - Computes display width of East-Asian characters for terminal layout.
+- `google-auth-library`: `^10.6.2`
+    - Google auth (OAuth/ADC) for Vertex/Gemini providers.
+- `he`: `^1.2.0`
+    - HTML entity encode/decode (web-fetch / HTML→markdown processing).
+- `https-proxy-agent`: `^8.0.0`
+    - HTTPS proxy agent for routing API requests through a proxy.
+- `husky`: `^9.1.7`
+    - Git hooks manager (pre-commit lint/format).
+- `ignore`: `^7.0.5`
+    - .gitignore-style pattern matching (file globbing/exclusions).
+- `image-processor-napi`: `workspace:*`
+    - Internal workspace package: native image processing.
+- `indent-string`: `^5.0.0`
+    - Indents multiline strings (terminal output formatting).
+- `jsonc-parser`: `^3.3.1`
+    - JSON-with-comments parser (settings.json / tsconfig parsing).
+- `knip`: `^6.4.1`
+    - Unused exports/files/deps detector (`bun run check:unused`).
+- `lint-staged`: `^16.4.0`
+    - Runs linters on staged files during pre-commit.
+- `lodash-es`: `^4.18.1`
+    - Utility/functional helpers (ESM build).
+- `lru-cache`: `^11.3.5`
+    - LRU caching for memoized lookups/results.
+- `marked`: `^17.0.6`
+    - Markdown parser/renderer (rendering assistant markdown in terminal).
+- `modifiers-napi`: `workspace:*`
+    - Internal workspace package: keyboard-modifier detection (macOS FFI).
+- `openai`: `^6.34.0`
+    - OpenAI SDK; backs the OpenAI-compatible provider (Ollama/DeepSeek/vLLM endpoints).
+- `p-map`: `^7.0.4`
+    - Concurrency-limited async mapping.
+- `picomatch`: `^4.0.4`
+    - Fast glob matcher (file pattern matching).
+- `plist`: `^3.1.0`
+    - Apple plist parser/serializer (macOS integrations).
+- `proper-lockfile`: `^4.1.2`
+    - Cross-process file locking (session/state lockfiles).
+- `qrcode`: `^1.5.4`
+    - QR code generation (login/connect URLs).
+- `react`: `^19.2.5`
+    - React; the component model used by the Ink terminal UI.
+- `react-compiler-runtime`: `^1.0.0`
+    - Runtime support for React Compiler output (`_c()` memoization in decompiled components).
+- `react-reconciler`: `^0.33.0`
+    - Custom React reconciler powering the forked Ink renderer.
+- `rollup`: `^4.60.2`
+    - Module bundler (used in the Vite build pipeline).
+- `semver`: `^7.7.4`
+    - Semantic-version parsing/comparison (update checks, version gating).
+- `sharp`: `^0.34.5`
+    - High-performance image processing (resize/encode for image inputs).
+- `shell-quote`: `^1.8.3`
+    - Shell command quoting/parsing (safe command construction).
+- `signal-exit`: `^4.1.0`
+    - Reliable process-exit handler registration (cleanup on exit).
+- `stack-utils`: `^2.0.6`
+    - Stack-trace cleaning/formatting.
+- `strip-ansi`: `^7.2.0`
+    - Strips ANSI escape codes from strings (width calc/logging).
+- `supports-hyperlinks`: `^4.4.0`
+    - Detects terminal hyperlink support.
+- `tree-kill`: `^1.2.2`
+    - Kills a process and its child tree (cleaning up spawned shells).
+- `turndown`: `^7.2.4`
+    - HTML→Markdown converter (web-fetch content normalization).
+- `type-fest`: `^5.6.0`
+    - Collection of advanced TypeScript utility types.
+- `typescript`: `^6.0.3`
+    - TypeScript compiler (strict-mode typecheck).
+- `undici`: `^7.25.0`
+    - High-performance HTTP/1.1 client (fetch implementation/networking).
+- `url-handler-napi`: `workspace:*`
+    - Internal workspace package: URL-scheme handling.
+- `usehooks-ts`: `^3.1.1`
+    - Reusable typed React hooks.
+- `vite`: `^8.0.8`
+    - Alternative build pipeline (code-splitting build via `build:vite`).
+- `vscode-jsonrpc`: `^8.2.1`
+    - JSON-RPC implementation for LSP/IDE bridge communication.
+- `vscode-languageserver-protocol`: `^3.17.5`
+    - LSP protocol types/messages (LSPTool / language-server manager).
+- `vscode-languageserver-types`: `^3.17.5`
+    - LSP shared type definitions.
+- `wrap-ansi`: `^10.0.0`
+    - Wraps ANSI-styled strings to a width (terminal text wrapping).
+- `xss`: `^1.0.15`
+    - HTML sanitization (Web UI / fetched-content safety).
+- `yaml`: `^2.8.3`
+    - YAML parser/serializer (config/frontmatter parsing).
+- `zod`: `^4.3.6`
+    - Schema validation/typing (tool input schemas, config validation).
+
+### package.json — optionalDependencies
+- `doubaoime-asr`: `^0.1.0`
+    - Optional Doubao speech-to-text ASR engine for voice input.
+
+### package.json — overrides
+- `@inquirer/prompts`: `8.4.2`
+    - Pins a transitive interactive-prompt dependency to a known-good version.
+- `@xmldom/xmldom`: `0.8.13`
+    - Pins a transitive XML DOM dependency.
+- `follow-redirects`: `1.16.0`
+    - Pins a transitive HTTP redirect-following dependency.
+- `hono`: `4.12.15`
+    - Pins a transitive web-framework dependency (used by RCS/server layers).
+- `postcss`: `8.5.10`
+    - Pins a transitive CSS-processing dependency (Web UI build).
+- `uuid`: `14.0.0`
+    - Pins a transitive UUID-generation dependency.
+
+## Taxonomy
+
+- LLM / Agent SDKs (core): the API clients and agent protocols the CLI is built around.
+   - `@agentclientprotocol/sdk`
+   - `@claude-code-best/mcp-chrome-bridge`
+   - `@anthropic-ai/sdk`
+   - `@anthropic-ai/claude-agent-sdk`
+   - `@anthropic-ai/bedrock-sdk`
+   - `@anthropic-ai/vertex-sdk`
+   - `@anthropic-ai/foundry-sdk`
+   - `@anthropic-ai/sandbox-runtime`
+   - `@anthropic-ai/mcpb`
+   - `@modelcontextprotocol/sdk`
+   - `openai`
+   - `@ant/model-provider`
+
+- CLI framework & terminal UI: command parsing plus the Ink/React-based rendering stack.
+   - `@commander-js/extra-typings`
+   - `@anthropic/ink`
+   - `react`
+   - `react-compiler-runtime`
+   - `react-reconciler`
+   - `@types/react`
+   - `@types/react-reconciler`
+   - `usehooks-ts`
+   - `auto-bind`
+   - `chalk`
+   - `cli-boxes`
+   - `cli-highlight`
+   - `highlight.js`
+   - `figures`
+   - `asciichart`
+   - `@alcalzone/ansi-tokenize`
+   - `strip-ansi`
+   - `wrap-ansi`
+   - `indent-string`
+   - `bidi-js`
+   - `emoji-regex`
+   - `get-east-asian-width`
+   - `supports-hyperlinks`
+
+- Built-in / agent tools (workspace): the tool implementations the agent invokes.
+   - `@claude-code-best/builtin-tools`
+   - `@claude-code-best/agent-tools`
+
+- Cloud auth & AWS/Azure/Google SDKs: credential and cloud-provider plumbing for non-first-party providers.
+   - `@aws-sdk/client-bedrock`
+   - `@aws-sdk/client-bedrock-runtime`
+   - `@aws-sdk/client-sts`
+   - `@aws-sdk/credential-provider-node`
+   - `@aws-sdk/credential-providers`
+   - `@smithy/core`
+   - `@smithy/node-http-handler`
+   - `@azure/identity`
+   - `google-auth-library`
+
+- Networking & HTTP: transport for API calls, remote control, and web fetch.
+   - `ws`
+   - `@types/ws`
+   - `axios`
+   - `undici`
+   - `https-proxy-agent`
+
+- MCP / IDE / LSP integration: protocol clients for editors and external tools.
+   - `@claude-code-best/mcp-client`
+   - `vscode-jsonrpc`
+   - `vscode-languageserver-protocol`
+   - `vscode-languageserver-types`
+
+- Telemetry & observability: tracing, metrics, error reporting.
+   - `@langfuse/otel`
+   - `@langfuse/tracing`
+   - `@opentelemetry/api`
+   - `@opentelemetry/api-logs`
+   - `@opentelemetry/core`
+   - `@opentelemetry/exporter-logs-otlp-grpc`
+   - `@opentelemetry/exporter-logs-otlp-http`
+   - `@opentelemetry/exporter-logs-otlp-proto`
+   - `@opentelemetry/exporter-metrics-otlp-grpc`
+   - `@opentelemetry/exporter-metrics-otlp-http`
+   - `@opentelemetry/exporter-metrics-otlp-proto`
+   - `@opentelemetry/exporter-prometheus`
+   - `@opentelemetry/exporter-trace-otlp-grpc`
+   - `@opentelemetry/exporter-trace-otlp-http`
+   - `@opentelemetry/exporter-trace-otlp-proto`
+   - `@opentelemetry/resources`
+   - `@opentelemetry/sdk-logs`
+   - `@opentelemetry/sdk-metrics`
+   - `@opentelemetry/sdk-trace-base`
+   - `@opentelemetry/semantic-conventions`
+   - `@sentry/node`
+   - `@growthbook/growthbook`
+
+- Native addons & media (workspace + image/audio): platform-native helpers for input, image, audio, voice.
+   - `audio-capture-napi`
+   - `image-processor-napi`
+   - `color-diff-napi`
+   - `modifiers-napi`
+   - `url-handler-napi`
+   - `@ant/computer-use-input`
+   - `@ant/computer-use-mcp`
+   - `@ant/computer-use-swift`
+   - `@ant/claude-for-chrome-mcp`
+   - `sharp`
+   - `@types/sharp`
+   - `qrcode`
+   - `@types/qrcode`
+   - `doubaoime-asr`
+
+- Text / content processing: markdown, diff, HTML, syntax.
+   - `marked`
+   - `diff`
+   - `turndown`
+   - `@types/turndown`
+   - `he`
+   - `@types/he`
+   - `xss`
+   - `code-excerpt`
+
+- Data, config & validation: schemas, serialization, parsing.
+   - `zod`
+   - `ajv`
+   - `yaml`
+   - `jsonc-parser`
+   - `semver`
+   - `@types/semver`
+   - `type-fest`
+
+- Filesystem, process & utilities: globbing, watching, locking, caching, process control.
+   - `chokidar`
+   - `ignore`
+   - `picomatch`
+   - `@types/picomatch`
+   - `fuse.js`
+   - `execa`
+   - `shell-quote`
+   - `@types/shell-quote`
+   - `tree-kill`
+   - `signal-exit`
+   - `proper-lockfile`
+   - `@types/proper-lockfile`
+   - `cacache`
+   - `@types/cacache`
+   - `lru-cache`
+   - `env-paths`
+   - `p-map`
+   - `lodash-es`
+   - `@types/lodash-es`
+   - `fflate`
+   - `plist`
+   - `@types/plist`
+   - `stack-utils`
+   - `@types/stack-utils`
+
+- Build, lint, tooling & types: dev toolchain, bundlers, and type packages.
+   - `typescript`
+   - `vite`
+   - `rollup`
+   - `@biomejs/biome`
+   - `knip`
+   - `husky`
+   - `lint-staged`
+   - `@types/bun`
+   - `@types/node`
+
+- Internal workspace integrations (other): remaining workspace packages.
+   - `@claude-code-best/weixin`
+
+- Dependency overrides (pinned transitives): version pins applied across the dep tree.
+   - `@inquirer/prompts`
+   - `@xmldom/xmldom`
+   - `follow-redirects`
+   - `hono`
+   - `postcss`
+   - `uuid`
+```
